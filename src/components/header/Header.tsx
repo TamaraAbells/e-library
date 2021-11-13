@@ -247,12 +247,4 @@ import {
       label: 'Specialized Databases',
       href: '#',
     },
-    {
-      label: 'Bookmarks',
-      href: '#',
-    },
-    {
-      label: 'Contact Us',
-      href: '#',
-    },
   ];

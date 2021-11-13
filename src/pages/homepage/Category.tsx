@@ -9,11 +9,6 @@ import {
   } from '@chakra-ui/react'
 import Card from "../../components/cards/Card"
 
-interface SearchBarProps {
-  term: string;
-  optionalArgument?: string;
-}
-
 const Category = (data: any) => (
   <>
     <Stack

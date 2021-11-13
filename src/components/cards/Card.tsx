@@ -66,7 +66,7 @@ export interface CategoryProps {
             <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
               {`+${category.books}`}
             </Text>
-            <Heading textAlign={'center'} fontSize={'lg'} fontFamily={'body'} fontWeight={700}>
+            <Heading textAlign={'center'} fontSize={'xl'} fontFamily={'body'} fontWeight={700}>
               {category.title}
             </Heading>
             <Stack direction={'row'} align={'center'}>

@@ -21,6 +21,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { GoSettings, GoSearch } from "react-icons/go";
+import AdvancedSearch from "../../modals/AdvancedSearch";
 
 export default function Hero() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -149,27 +150,7 @@ export default function Hero() {
           </Stack>
         </VStack>
       </Flex>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered size="full">
-        <ModalOverlay />
-        <ModalContent sx={{ background: 'white', borderRadius: 0 }}>
-          <ModalCloseButton
-            fontSize={'1.5rem'}
-            borderRadius={'50%'}
-            padding={'20px'}
-            bg={'white'}
-            _hover={{ bg: '#000', color: '#FFF', padding: '20px' }}
-          />
-          <ModalHeader
-            marginTop={'50px'}
-            fontSize={'2em'}
-          >
-            Advanced Search
-          </ModalHeader>
-          <ModalBody display="flex" alignItems="center" justifyContent="center">
-            ModalBody
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+      <AdvancedSearch isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
     </>
   );
 }
