@@ -1,17 +1,15 @@
 import React from "react";
 import { Stack } from "@chakra-ui/react";
-import HeroComponent from "./HeroComponent";
-import Statistics from "./Statistics";
-import Category from "./Category";
-import Features from "./Features";
+import HeroComponent from "../../components/hero/Hero";
+import StatsCardProps from "../../components/cards/Stats";
+import CategoryComponent from "./Category";
 
 const Homepage = () => {
   return(
       <Stack >
         <HeroComponent />
-        <Statistics />
-        <Category />
-        <Features />
+        <StatsCardProps />
+        <CategoryComponent />
     </Stack>
   )
 }

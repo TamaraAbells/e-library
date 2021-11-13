@@ -20,9 +20,7 @@ import {
   useBreakpointValue,
   useDisclosure,
 } from '@chakra-ui/react';
-import {
-  HamburgerIcon,
-} from '@chakra-ui/icons';
+import { GoSettings, GoSearch } from "react-icons/go";
 
 export default function Hero() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -41,56 +39,112 @@ export default function Hero() {
           justify={'center'}
           px={useBreakpointValue({ base: 4, md: 8 })}
           bgGradient={'linear(to-r, blackAlpha.600, transparent)'}>
-          <Stack maxW={'4xl'} align={'center'} spacing={6}>
+          <Stack align={'center'} spacing={6}>
             <Text
               color={'white'}
               textAlign={'center'}
               fontWeight={700}
               lineHeight={1.2}
-              fontSize={useBreakpointValue({ base: '5xl', md: '5xl' })}>
+              fontSize={useBreakpointValue({ base: '3xl', md: '5xl', lg: '6xl' })}>
               Lorem Ipsum Dolor Sit Amet Consectetur
             </Text>
             <Stack
-              w={'5xl'}
-              direction={'row'}
+              w={{ base: '100%', md: '2xl', lg: '4xl' }}
+              direction={{ base: 'column', lg: 'row' }}
+              justifyContent={'center'}
+              alignItems={'center'}
               spacing={0}
               align={'center'}
               alignSelf={'center'}
               position={'relative'}
-              justifyContent={'space-around'}
-              border={'1px solid #2c5282'}
               borderRadius={'10px'}
+              padding={['2px']}
+              bg={'whiteAlpha.700'}
             >
-              <Input h={'60px'} borderRadius={'10px 0 0 10px'} bg={'whiteAlpha.800'} />
-              <ButtonGroup spacing={0}>
+              <Input
+                fontSize={'20px'}
+                h={['40px', '40px', '60px']}
+                w={'100%'}
+                borderRadius={{ base: '10px', lg: '8px 0 0 8px' }}
+                bg={'whiteAlpha.900'}
+                borderRight={0}
+              />
+              <Stack
+                direction={{ base: 'column', lg: 'row' }}
+                spacing={[0.6, 0.6, 0.8, 0]}
+                w={['100%', '100%', '100%', 'unset']}
+              >
                 <IconButton
+                  display={{ base: 'none', lg: 'flex' }}
+                  aria-label={'Search database'}
+                  fontSize={'30px'}
                   bg={'blue.700'}
                   color={'white'}
                   p={6}
+                  w={['100%', '100%', '100%', '100px']}
                   h={'60px'}
-                  borderRadius={0}
+                  borderRadius={'8px 0 0 8px'}
                   _hover={{
                     bg: 'blue.800',
                   }}
-                  icon={ <HamburgerIcon /> }
+                  icon={ <GoSearch /> }
                   onClick={onOpen}
                 />
-                <Divider w={'1px'} />
-                <Button
-                  w={'200px'}
-                  colorScheme={'blue'}
+                <Divider w={0.5} />
+                <IconButton
+                  display={{ base: 'none', lg: 'flex' }}
+                  aria-label={'Advanced search database'}
+                  fontSize={'30px'}
                   bg={'blue.700'}
-                  px={6}
-                  h={'60px'}
                   borderRadius={'0 8px 8px 0'}
+                  color={'white'}
+                  p={6}
+                  w={['100%', '100%', '100%', '100px']}
+                  h={'60px'}
                   _hover={{
                     bg: 'blue.800',
                   }}
-                  fontSize={'1.5rem'}
+                  icon={ <GoSettings /> }
+                  onClick={onOpen}
+                />    
+                <Button
+                  display={{ base: 'flex', lg: 'none' }}
+                  aria-label={'Search database'}
+                  fontSize={['20px', '30px', '30px']}
+                  bg={'blue.700'}
+                  color={'white'}
+                  p={6}
+                  w={['100%', '100%', '100%', '100px']}
+                  h={['40px', '40px', '60px']}
+                  borderRadius={'8px'}
+                  _hover={{
+                    bg: 'blue.800',
+                  }}
+                  icon={ <GoSearch /> }
+                  onClick={onOpen}
                 >
                   Search
                 </Button>
-              </ButtonGroup>
+                <Divider w={0.5} />
+                <Button
+                  display={{ base: 'flex', lg: 'none' }}
+                  aria-label={'Advanced search database'}
+                  fontSize={['20px', '30px', '30px']}
+                  bg={'blue.700'}
+                  borderRadius={'8px'}
+                  color={'white'}
+                  p={6}
+                  w={['100%', '100%', '100%', '100px']}
+                  h={['40px', '40px', '60px']}
+                  _hover={{
+                    bg: 'blue.800',
+                  }}
+                  icon={ <GoSettings /> }
+                  onClick={onOpen}
+                >  
+                  Advanced Search
+                </Button>  
+              </Stack>
             </Stack>
           </Stack>
         </VStack>
