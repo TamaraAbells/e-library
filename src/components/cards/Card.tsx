@@ -10,10 +10,16 @@ import {
     Button
   } from '@chakra-ui/react';
   
+export interface CategoryProps {
+  title: string;
+  image: string;
+  books: number;
+  id: number;
+}
   const IMAGE =
     'https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80';
   
-  export default function Card() {
+  export default function Card(category: CategoryProps) {
     return (
       <Center py={12}>
         <Box
@@ -39,7 +45,7 @@ import {
               pos: 'absolute',
               top: 5,
               left: 0,
-              backgroundImage: `url(${IMAGE})`,
+              backgroundImage: `url(${category.image})`,
               filter: 'blur(15px)',
               zIndex: -1,
             }}
@@ -53,15 +59,15 @@ import {
               height={230}
               width={282}
               objectFit={'cover'}
-              src={IMAGE}
+              src={category.image}
             />
           </Box>
           <Stack pt={10} align={'center'}>
             <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
-              500 Titles
+              {`+${category.books}`}
             </Text>
-            <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500}>
-              Islamic Studies
+            <Heading textAlign={'center'} fontSize={'lg'} fontFamily={'body'} fontWeight={700}>
+              {category.title}
             </Heading>
             <Stack direction={'row'} align={'center'}>
               <Button>Read</Button>
