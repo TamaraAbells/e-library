@@ -27,7 +27,7 @@ createServer({
           { id: 12, title: "Arts and Architecture", books: 1000, image: Images.CategoryImages.Arts },
           { id: 13, title: "Classical Literature", books: 7000, image: Images.CategoryImages.Classical },
           { id: 14, title: "Educational Science", books: 1000, image: Images.CategoryImages.Educational },
-          // { id: 15, title: "School", books: 700, image: Images.CategoryImages.School },
+          { id: 15, title: "School", books: 700, image: Images.CategoryImages.School },
           
         ],
       }
