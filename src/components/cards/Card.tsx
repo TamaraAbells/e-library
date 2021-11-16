@@ -16,8 +16,6 @@ export interface CategoryProps {
   books: number;
   id: number;
 }
-  const IMAGE =
-    'https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80';
   
   export default function Card(category: CategoryProps) {
     return (
@@ -64,13 +62,13 @@ export interface CategoryProps {
           </Box>
           <Stack pt={10} align={'center'}>
             <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
-              {`+${category.books}`}
+              {`+${category.books} study materials`}
             </Text>
             <Heading textAlign={'center'} fontSize={'xl'} fontFamily={'body'} fontWeight={700}>
               {category.title}
             </Heading>
             <Stack direction={'row'} align={'center'}>
-              <Button>Read</Button>
+              <Button>View All Books</Button>
             </Stack>
           </Stack>
         </Box>

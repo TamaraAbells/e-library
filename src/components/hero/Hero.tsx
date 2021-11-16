@@ -1,40 +1,34 @@
 import React from "react";
 import {
-  Box,
   Stack,
   Flex,
   Button,
-  ButtonGroup,
   Input,
   Text,
   VStack,
-  Icon,
   IconButton,
   Divider,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalOverlay,
-  ModalContent,
-  ModalCloseButton,
   useBreakpointValue,
   useDisclosure,
 } from '@chakra-ui/react';
 import { GoSettings, GoSearch } from "react-icons/go";
 import AdvancedSearch from "../../modals/AdvancedSearch";
 
-export default function Hero() {
+interface HeroProps {
+  title?: string;
+  backgroundImage: string;
+}
+
+export default function Hero(props: HeroProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
       <Flex
         w={'full'}
         h={'100vh'}
-        backgroundImage={
-          'url(https://images.unsplash.com/photo-1600267175161-cfaa711b4a81?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80)'
-        }
-        backgroundSize={'cover'}
-        backgroundPosition={'center center'}>
+        bgImage={props.backgroundImage}
+        bgSize={'cover'}
+        bgPosition={'center center'}>
         <VStack
           w={'full'}
           justify={'center'}
@@ -46,12 +40,12 @@ export default function Hero() {
               textAlign={'center'}
               fontWeight={700}
               lineHeight={1.2}
-              fontSize={useBreakpointValue({ base: '3xl', md: '5xl', lg: '6xl' })}>
+              fontSize={useBreakpointValue({ base: '3xl', md: '5xl', lg: '7xl' })}>
               Lorem Ipsum Dolor Sit Amet Consectetur
             </Text>
             <Stack
-              w={{ base: '100%', md: '2xl', lg: '4xl' }}
-              direction={{ base: 'column', lg: 'row' }}
+              w={useBreakpointValue({ base: '100%', md: '2xl', lg: '4xl' })}
+              direction={useBreakpointValue({ base: 'column', lg: 'row' })}
               justifyContent={'center'}
               alignItems={'center'}
               spacing={0}
@@ -64,43 +58,42 @@ export default function Hero() {
             >
               <Input
                 fontSize={'20px'}
-                h={['40px', '40px', '60px']}
+                h={useBreakpointValue(['40px', '40px', '60px'])}
                 w={'100%'}
-                borderRadius={{ base: '10px', lg: '8px 0 0 8px' }}
+                borderRadius={useBreakpointValue({ base: '10px', lg: '8px 0 0 8px' })}
                 bg={'whiteAlpha.900'}
                 borderRight={0}
               />
               <Stack
-                direction={{ base: 'column', lg: 'row' }}
-                spacing={[0.6, 0.6, 0.8, 0]}
-                w={['100%', '100%', '100%', 'unset']}
+                direction={useBreakpointValue({ base: 'column', lg: 'row' })}
+                spacing={useBreakpointValue([0.6, 0.6, 0.8, 0])}
+                w={useBreakpointValue(['100%', '100%', '100%', 'unset'])}
               >
                 <IconButton
-                  display={{ base: 'none', lg: 'flex' }}
+                  display={useBreakpointValue({ base: 'none', lg: 'flex' })}
                   aria-label={'Search database'}
                   fontSize={'30px'}
                   bg={'blue.700'}
                   color={'white'}
                   p={6}
-                  w={['100%', '100%', '100%', '100px']}
+                  w={useBreakpointValue(['100%', '100%', '100%', '100px'])}
                   h={'60px'}
                   borderRadius={'8px 0 0 8px'}
                   _hover={{
                     bg: 'blue.800',
                   }}
                   icon={ <GoSearch /> }
-                  onClick={onOpen}
                 />
                 <Divider w={0.5} />
                 <IconButton
-                  display={{ base: 'none', lg: 'flex' }}
+                  display={useBreakpointValue({ base: 'none', lg: 'flex' })}
                   aria-label={'Advanced search database'}
                   fontSize={'30px'}
                   bg={'blue.700'}
                   borderRadius={'0 8px 8px 0'}
                   color={'white'}
                   p={6}
-                  w={['100%', '100%', '100%', '100px']}
+                  w={useBreakpointValue(['100%', '100%', '100%', '100px'])}
                   h={'60px'}
                   _hover={{
                     bg: 'blue.800',
@@ -109,14 +102,14 @@ export default function Hero() {
                   onClick={onOpen}
                 />    
                 <Button
-                  display={{ base: 'flex', lg: 'none' }}
+                  display={useBreakpointValue({ base: 'flex', lg: 'none' })}
                   aria-label={'Search database'}
-                  fontSize={['20px', '30px', '30px']}
+                  fontSize={useBreakpointValue(['20px', '30px', '30px'])}
                   bg={'blue.700'}
                   color={'white'}
                   p={6}
-                  w={['100%', '100%', '100%', '100px']}
-                  h={['40px', '40px', '60px']}
+                  w={useBreakpointValue(['100%', '100%', '100%', '100px'])}
+                  h={useBreakpointValue(['40px', '40px', '60px'])}
                   borderRadius={'8px'}
                   _hover={{
                     bg: 'blue.800',
@@ -128,15 +121,15 @@ export default function Hero() {
                 </Button>
                 <Divider w={0.5} />
                 <Button
-                  display={{ base: 'flex', lg: 'none' }}
+                  display={useBreakpointValue({ base: 'flex', lg: 'none' })}
                   aria-label={'Advanced search database'}
-                  fontSize={['20px', '30px', '30px']}
+                  fontSize={useBreakpointValue(['20px', '30px', '30px'])}
                   bg={'blue.700'}
                   borderRadius={'8px'}
                   color={'white'}
                   p={6}
-                  w={['100%', '100%', '100%', '100px']}
-                  h={['40px', '40px', '60px']}
+                  w={useBreakpointValue(['100%', '100%', '100%', '100px'])}
+                  h={useBreakpointValue(['40px', '40px', '60px'])}
                   _hover={{
                     bg: 'blue.800',
                   }}
@@ -150,7 +143,7 @@ export default function Hero() {
           </Stack>
         </VStack>
       </Flex>
-      <AdvancedSearch isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
+      <AdvancedSearch isOpen={isOpen} onClose={onClose} />
     </>
   );
 }

@@ -8,7 +8,7 @@ createServer({
 
   routes() {
     this.namespace = "api"
-    this.urlPrefix = process.env.REACT_APP_BASE_URL
+    this.urlPrefix = process.env.REACT_APP_BASE_URL ? process.env.REACT_APP_BASE_URL : ''
 
     this.get("/category-list", () => {
       return {
