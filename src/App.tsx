@@ -3,8 +3,9 @@ import { RecoilRoot } from "recoil"
 import { RouteObject, useRoutes } from "react-router-dom"
 import { ChakraProvider, theme } from "@chakra-ui/react"
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { FrontendLayout, SearchLayout } from "./components/layouts/Layouts";
+import { FrontendLayout } from "./components/layouts/Layouts";
 import Homepage from "./pages/homepage/Homepage";
+import Search from "./pages/search/Search";
 import "./server/server"
 
 export const App = () => {
@@ -18,10 +19,10 @@ export const App = () => {
       ]
     },
     {
-      path: "/search/:query",
-      element: <SearchLayout />,
+      path: "/search/",
+      element: <FrontendLayout />,
       children: [
-        { index: true, element: <Homepage /> },
+        { index: true, element: <Search /> },
       ]
     },
   ];
