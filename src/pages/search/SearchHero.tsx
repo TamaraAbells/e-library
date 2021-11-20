@@ -3,11 +3,9 @@ import {
   Stack,
   Flex,
   Button,
-  Box,
   Text,
   VStack,
   HStack,
-  Select,
   Input,
   IconButton,
   Divider,
@@ -49,29 +47,30 @@ export default function SearchHero() {
           </HStack>
           <Stack
             direction={'row'}
-            justifyContent={'space-between'}
+            justifyContent={'center'}
+            alignItems={'center'}
             >
-            <Stack direction={'row'}>
+            <Stack direction={'row'} w={['70vw', '50vw']}>
               <Input
-                w={'20vw'}
-                display={useBreakpointValue({ base: 'none', lg: 'flex' })}
-                borderRadius={'5px 0 0 0'}
+                borderRadius={'5px 0 0 5px'}
                 placeholder={'Your Search'}
                 bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
                 border={0}
                 mx={0}
                 _focus={{
-                  bg: 'whiteAlpha.300',
+                  bg: 'whiteAlpha.900',
                 }}
               />
               <HStack
-                borderRadius={'0 5px 0 0'}
+                w={'40%'}
+                borderRadius={'0 5px 5px 0'}
                 marginLeft={'0 !important'}
                 bg={useColorModeValue('green.400', 'green.800')}
                 color={useColorModeValue('white', 'gray.800')}
               >
                 <IconButton
                   size={'sm'}
+                  w={'35%'}
                   bg={useColorModeValue('green.400', 'green.800')}
                   color={useColorModeValue('white', 'gray.800')}
                   borderRight={'1px solid #e8ebed'}
@@ -87,6 +86,7 @@ export default function SearchHero() {
                   display={useBreakpointValue({ base: 'flex', lg: 'none' })}
                   size={'sm'}
                   fontSize={'20px'}
+                  pr={2}
                   bg={useColorModeValue('green.400', 'green.800')}
                   color={useColorModeValue('white', 'gray.800')}
                   borderRadius={0}
@@ -99,8 +99,6 @@ export default function SearchHero() {
                 <Button
                   display={useBreakpointValue({ base: 'none', lg: 'flex' })}
                   size={'sm'}
-                  px={0}
-                  pr={2}
                   bg={useColorModeValue('green.400', 'green.800')}
                   color={useColorModeValue('white', 'gray.800')}
                   borderRadius={0}
@@ -110,43 +108,6 @@ export default function SearchHero() {
                 >
                   Advanced
                 </Button>
-              </HStack>
-            </Stack>
-            <Stack direction={'row'}>
-              <HStack
-                borderRadius={'0 5px 0 0'}
-                marginLeft={'0 !important'}
-              >
-                <Button
-                  // display={useBreakpointValue({ base: 'none', lg: 'flex' })}
-                  size={'sm'}
-                  px={2}
-                  pr={2}
-                  bg={useColorModeValue('green.400', 'green.800')}
-                  color={useColorModeValue('white', 'gray.800')}
-                  borderRadius={0}
-                  _hover={{
-                    bg: 'inherit',
-                  }}
-                >
-                  Sort By
-                </Button>
-                <Select
-                  display={useBreakpointValue({ base: 'none', lg: 'flex' })}
-                  bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
-                  // color={useColorModeValue('white', 'gray.800')}
-                  borderRadius={'5px 0 0 0'}
-                  placeholder={'Your Search'}
-                  border={0}
-                  mx={0}
-                  _focus={{
-                    bg: 'whiteAlpha.300',
-                  }}
-                >
-                  <option value="option1">Option 1</option>
-                  <option value="option2">Option 2</option>
-                  <option value="option3">Option 3</option>
-                </Select>
               </HStack>
             </Stack>
           </Stack>
