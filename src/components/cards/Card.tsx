@@ -1,4 +1,5 @@
-import React from "react";
+import React from "react"
+import { Link as RouterLink } from "react-router-dom"
 import {
     Box,
     Center,
@@ -7,8 +8,8 @@ import {
     Text,
     Stack,
     Image,
-    Button
-  } from '@chakra-ui/react';
+    Button,
+  } from '@chakra-ui/react'
   
 export interface CategoryProps {
   title: string;
@@ -68,7 +69,7 @@ export interface CategoryProps {
               {category.title}
             </Heading>
             <Stack direction={'row'} align={'center'}>
-              <Button>View All Books</Button>
+              <Button as={RouterLink} to={'/category'} >View All Books</Button>
             </Stack>
           </Stack>
         </Box>

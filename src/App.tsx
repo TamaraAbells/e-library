@@ -3,9 +3,12 @@ import { RecoilRoot } from "recoil"
 import { RouteObject, useRoutes } from "react-router-dom"
 import { ChakraProvider, theme } from "@chakra-ui/react"
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { FrontendLayout } from "./components/layouts/Layouts";
-import Homepage from "./pages/homepage/Homepage";
-import Search from "./pages/search/Search";
+import { FrontendLayout } from "./components/layouts/Layouts"
+import Homepage from "./pages/homepage/Homepage"
+import Search from "./pages/search/Search"
+import Category from "./pages/category/Category"
+import Reader from "./pages/reader/Reader"
+
 import "./server/server"
 
 export const App = () => {
@@ -23,6 +26,20 @@ export const App = () => {
       element: <FrontendLayout />,
       children: [
         { index: true, element: <Search /> },
+      ]
+    },
+    {
+      path: "/category/",
+      element: <FrontendLayout />,
+      children: [
+        { index: true, element: <Category /> },
+      ]
+    },
+    {
+      path: "/reader/",
+      element: <FrontendLayout />,
+      children: [
+        { index: true, element: <Reader /> },
       ]
     },
   ];
