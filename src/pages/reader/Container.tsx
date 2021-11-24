@@ -25,8 +25,11 @@ interface ContainerProps {
         bg={'#f7fafc'}
         position={'relative'}
       >
-        <Stack>
-        <LeftControl />
+        <Stack
+          // minW={'10%'}
+          paddingTop={10}
+        >
+          <LeftControl />
         </Stack>
         <Stack w={'80%'} bg={'#f7fafc'}>
           <CenterControl />
