@@ -7,9 +7,9 @@ import { FrontendLayout } from "./components/layouts/Layouts"
 import Homepage from "./pages/homepage/Homepage"
 import Search from "./pages/search/Search"
 import Category from "./pages/category/Category"
-import Reader from "./pages/reader/Reader"
+import Container from "./pages/reader/Container"
 
-import "./server/server"
+// import "./server/server"
 
 export const App = () => {
 
@@ -39,7 +39,7 @@ export const App = () => {
       path: "/reader/",
       element: <FrontendLayout />,
       children: [
-        { index: true, element: <Reader /> },
+        { index: true, element: <Container /> },
       ]
     },
   ];
