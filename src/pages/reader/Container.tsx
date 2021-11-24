@@ -26,7 +26,7 @@ interface ContainerProps {
         position={'relative'}
       >
         <Stack
-          // minW={'10%'}
+          minW={'5%'}
           paddingTop={10}
         >
           <LeftControl />

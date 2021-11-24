@@ -37,7 +37,6 @@ interface ContainerProps {
               bg="teal.500"
               rounded="md"
               shadow="md"
-              zIndex={20}
             >
               <Text>
                 Lorem ipsum is placeholder text commonly used in the graphic, print, and
