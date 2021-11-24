@@ -42,9 +42,17 @@ interface ContainerProps {
 
   return (
     <>
-      <Stack>
-        <Stack direction={'row'} justifyContent={'space-between'}>
-          <Stack w={'30%'} bg={'#edf2f7'} justifyContent={'flex-start'}>
+      <Stack position={'relative'} bg={'#f7fafc'}>
+        <Stack
+          direction={'row'}
+          justifyContent={'space-between'}
+          position={'fixed'}
+          bg={'#f7fafc'}
+          w={'75%'}
+          zIndex={2}
+          padding={3}
+        >
+          <Stack w={'30%'} bg={'#edf2f7'} justifyContent={'flex-start'} position={'relative'}>
             <InputGroup size={'sm'} bg={'#f7fafc'}>
               <Input placeholder="Search within document" />
               <InputRightElement
@@ -101,22 +109,24 @@ interface ContainerProps {
             </InputGroup>
           </Stack>
         </Stack>
-        <Stack paddingTop={0}>
-          <Alert status="warning">
-            <AlertIcon />
-            <Box flex="1">
-              <AlertTitle>Preview Mode!</AlertTitle>
-              <AlertDescription display="block">
-              You can view only a fraction of each document. If you are a library patron and need full access
-              please refer to your librarian. If you are an individual contact Al Manhal directly.
-              </AlertDescription>
-            </Box>
-            <CloseButton position="absolute" right="8px" top="8px" />
-          </Alert>
+        <Stack>
+          <Stack paddingTop={10} position={'relative'}>
+            <Alert status="warning">
+              <AlertIcon />
+              <Box flex="1">
+                <AlertTitle>Preview Mode!</AlertTitle>
+                <AlertDescription display="block">
+                You can view only a fraction of each document. If you are a library patron and need full access
+                please refer to your librarian. If you are an individual contact Al Manhal directly.
+                </AlertDescription>
+              </Box>
+              <CloseButton position="absolute" right="8px" top="8px" />
+            </Alert>
+          </Stack>
+          <Center paddingTop={0} bg="white">
+            <Reader />
+          </Center>
         </Stack>
-        <Center paddingTop={0} bg="white">
-          <Reader />
-        </Center>
       </Stack>
     </>
   )

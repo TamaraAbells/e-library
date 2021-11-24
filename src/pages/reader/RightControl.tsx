@@ -32,7 +32,7 @@ interface ContainerProps {
 
   return(
     <>
-      <Stack>
+      <Stack position={'fixed'}>
         <List spacing={3}>
           <ListItem>
             <ListIcon as={IoMdDownload} color="green.500" />

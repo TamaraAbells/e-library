@@ -19,18 +19,22 @@ interface ContainerProps {
     <>
       <Stack
         padding={'50px'}
-        paddingTop={'80px'}
+        paddingTop={'60px'}
         direction={'row'}
         justifyContent={'space-between'}
         bg={'#f7fafc'}
+        position={'relative'}
       >
         <Stack>
         <LeftControl />
         </Stack>
-        <Stack w={'80%'}>
+        <Stack w={'80%'} bg={'#f7fafc'}>
           <CenterControl />
         </Stack>
-        <Stack minW={'10%'} paddingTop={10}>
+        <Stack
+          minW={'10%'}
+          paddingTop={10}
+        >
           <RightControl />
         </Stack>
       </Stack>
