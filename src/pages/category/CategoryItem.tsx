@@ -1,4 +1,5 @@
 import React from "react"
+import { Link as RouterLink } from "react-router-dom"
 import {
   Heading,
   Text,
@@ -32,7 +33,9 @@ const CategoryItem = ({ book }: SearchResultProps): JSX.Element => {
         <Stack direction="row">
           <Image boxSize={'100px'} src={book.image} />
           <Stack>
-            <Heading fontSize={['15px', '20px']}>{book.title}</Heading>
+            <Link as={RouterLink} to={'/reader'}>
+              <Heading fontSize={['15px', '20px']}>{book.title}</Heading>
+            </Link>
             <Box fontSize={'12px'}>
               <HStack>
                 <Text fontWeight={'700'}>Authors: </Text>
@@ -65,10 +68,12 @@ const CategoryItem = ({ book }: SearchResultProps): JSX.Element => {
             fontSize={['11px', '13px']}
           >
             <HStack justifyContent={'space-between'}>
-              <ListItem as={Link}>
-                <ListIcon as={GoEye} />
-                Read
-              </ListItem>
+              <Link as={RouterLink} to={'/reader'}>
+                <ListItem>
+                  <ListIcon as={GoEye} />
+                  Read
+                </ListItem>
+              </Link>
               <ListItem as={Link}>
                 <ListIcon as={GoCreditCard} />
                 Details

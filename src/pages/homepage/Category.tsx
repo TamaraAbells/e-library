@@ -16,8 +16,8 @@ interface CategoryProps {
 }
 
 const Category = ({ categories }: CategoryProps) => {
-  console.log('CATEGORis', categories)
- return (
+
+  return (
     <>
       <Stack
         alignSelf={'center'}
