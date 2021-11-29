@@ -30,6 +30,7 @@
     "recoil": "^0.5.2",
     "search-react-input": "^1.2.4",
     "typescript": "^3.9.5",
+    "use-debounce": "^7.0.1",
     "web-vitals": "^0.2.2"
   },
   "scripts": {

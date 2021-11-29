@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useMemo } from "react"
+import { useDebounce } from "use-debounce"
 import { Document, Page, Outline, pdfjs } from 'react-pdf'
 import pdfjsWorker from "react-pdf/node_modules/pdfjs-dist/build/pdf.worker.entry"
 import {
   List,
   ListItem,
   ListIcon,
+  Link,
   Box,
   Stack,
   Text,
@@ -30,7 +32,7 @@ import {
   AccordionPanel,
   AccordionIcon,
   SimpleGrid,
-  useDisclosure,
+  useToast,
   useBreakpoint,
 } from "@chakra-ui/react"
 import {
@@ -59,6 +61,7 @@ import {
 import { CloseButton } from "@chakra-ui/close-button"
 import { useWindowSize } from "../../hooks/useWindowSize"
 import { Docs } from "../../assets"
+import { usePdfTextSearch } from "../../hooks/usePdfTextSearch"
 
 pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker
 
@@ -70,12 +73,15 @@ interface ContainerProps {
 }
 
  const Container = (props: ContainerProps): JSX.Element => {
-  const { isOpen, onToggle } = useDisclosure()
   const [computedWidth, setComputedWidth] = useState(0)
   const [numPages, setNumPages] = useState() as any
   const [pageNumber, setPageNumber] = useState(1)
   const { width: winSize } = useWindowSize() as any
   const breakPoint = useBreakpoint()
+  const toast = useToast()
+  const [searchString, setSearchString] = useState('');
+  const [debouncedSearchString] = useDebounce(searchString, 250);
+
 
   useEffect(() => {
     breakPoint === 'md' ? (
@@ -88,6 +94,40 @@ interface ContainerProps {
       setComputedWidth(winSize - 50)
     ) : setComputedWidth(winSize - 450)
   }, [winSize, breakPoint])
+
+  const searchResults = usePdfTextSearch(Docs.samplePDF, debouncedSearchString);
+
+  /* 
+    This textRenderer highlight pattern is from the Recipes in the react-pdf docs:
+    https://github.com/wojtekmaj/react-pdf/wiki/Recipes#highlight-text-on-the-page
+    But this is not currently working as I would expect. Needs work.
+  */
+  const textRenderer = useMemo(
+    (textItem) => {
+      if (!textItem) return null;
+      return highlightPattern(textItem.str, debouncedSearchString);
+    },
+    [debouncedSearchString]
+  );
+
+  let resultText =
+    searchResults.length === 1
+      ? "Results found on 1 page"
+      : `Results found on ${searchResults.length} pages`;
+
+  if (searchResults.length === 0) {
+    resultText = "no results found";
+  }
+
+  // if (searchResults.length > 0) {
+  //   toast({
+  //     title: 'In Search.',
+  //     description: resultText,
+  //     status: 'info',
+  //     duration: 1000,
+  //     isClosable: true,
+  //   })
+  // }
   
   function onDocumentLoadSuccess({ numPages }: any) {
     setNumPages(numPages);
@@ -181,7 +221,10 @@ interface ContainerProps {
                 >
                   <InputGroup size={'sm'} bg={'#f7fafc'}>
                     <Input
+                      type={'search'}
                       placeholder={'Search within document'}
+                      value={searchString}
+                      onChange={(e) => setSearchString(e.target.value)}
                     />
                     <InputRightElement
                       marginRight={8}
@@ -278,10 +321,32 @@ interface ContainerProps {
                     </Box>
                     <CloseButton position={'absolute'} right={'8px'} top={'8px'} />
                   </Alert>
+                  {searchString && (
+                    <Alert status='info'>
+                      <AlertIcon />
+                      {resultText}
+                    </Alert>
+                  )}
                 </Stack>
                 <Center paddingTop={0} bg={'white'}>
-                  <Stack bg={'white'}>
-                    <Page pageNumber={pageNumber || 1} width={computedWidth} />
+                  <Stack bg={'white'} width={computedWidth}>
+                    {searchString &&
+                      searchResults ? (
+                        searchResults.map((searchResultPageNumber) => (
+                          <Page
+                            key={searchResultPageNumber}
+                            pageNumber={searchResultPageNumber}
+                            customTextRenderer={textRenderer}
+                            width={computedWidth}
+                          />
+                        ))
+                      ) : (
+                      <Page
+                        pageNumber={pageNumber || 1}
+                        width={computedWidth}
+                        customTextRenderer={textRenderer}
+                      />
+                    )}
                   </Stack>
                 </Center>
               </Stack>
@@ -291,31 +356,31 @@ interface ContainerProps {
             <Stack position={{ base: 'static', md: 'fixed' }} w={['100%', '13%']}>
               <List spacing={3}>
                 <SimpleGrid columns={[2, null, 1]} spacing={2}>
-                  <ListItem>
+                  <ListItem as={Link}>
                     <ListIcon as={IoMdDownload} color="green.500" />
                     Download
                   </ListItem>
-                  <ListItem>
+                  <ListItem as={Link}>
                     <ListIcon as={IoMdPhotos} color="green.500" />
                     Screenshot
                   </ListItem>
-                  <ListItem>
+                  <ListItem as={Link}>
                     <ListIcon as={IoMdPrint} color="green.500" />
                     Print
                   </ListItem>
-                  <ListItem>
+                  <ListItem as={Link}>
                     <ListIcon as={IoMdShare} color="green.500" />
                     Share
                   </ListItem>
-                  <ListItem>
+                  <ListItem as={Link}>
                     <ListIcon as={IoMdChatboxes} color="green.500" />
                     Anotate
                   </ListItem>
-                  <ListItem>
+                  <ListItem as={Link}>
                     <ListIcon as={IoMdBook} color="green.500" />
                     Cite
                   </ListItem>
-                  <ListItem>
+                  <ListItem as={Link}>
                     <ListIcon as={IoMdCreate} color="green.500" />
                     Highlight
                   </ListItem>
