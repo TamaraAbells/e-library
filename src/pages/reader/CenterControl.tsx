@@ -1,4 +1,6 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
+import { Document, Page, Outline, pdfjs } from 'react-pdf'
+import pdfjsWorker from "react-pdf/node_modules/pdfjs-dist/build/pdf.worker.entry"
 import {
   Box,
   Stack,
@@ -18,7 +20,6 @@ import {
   AlertIcon,
   AlertTitle,
   AlertDescription,
-  useDisclosure
 } from "@chakra-ui/react"
 import {
   FiSearch,
@@ -33,26 +34,64 @@ import {
 import { CloseButton } from "@chakra-ui/close-button"
 
 import Reader from "./Reader"
+import { useWindowSize } from "../../hooks/useWindowSize"
+import { Docs } from "../../assets"
+
+pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker
 
 interface ContainerProps {
   navItems?: Array<ContainerProps>
 }
 
  const CenterControl = (props: ContainerProps): JSX.Element => {
+  const [computedWidth, setComputedWidth] = useState(0)
+  const [numPages, setNumPages] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
+  const { width } = useWindowSize() as any
+
+  useEffect(() => {
+    setComputedWidth(width - 370)
+  }, [width])
+
+  
+function onDocumentLoadSuccess({ numPages }) {
+  setNumPages(numPages);
+  setPageNumber(1);
+}
+
+function changePage(offset) {
+  setPageNumber(prevPageNumber => prevPageNumber + offset);
+}
+
+function previousPage() {
+  changePage(-1);
+}
+
+function nextPage() {
+  changePage(1);
+}
+function onItemClick({ pageNumber: itemPageNumber }) {
+  setPageNumber(itemPageNumber);
+}
 
   return (
     <>
       <Stack position={'relative'} bg={'#f7fafc'}>
         <Stack
           direction={'row'}
-          justifyContent={'space-between'}
+          justifyContent={'space-around'}
           position={'fixed'}
           bg={'#f7fafc'}
-          w={'75%'}
+          w={['75%', '75%', '75%']}
           zIndex={2}
-          padding={3}
+          padding={['10px 30px']}
         >
-          <Stack w={'30%'} bg={'#edf2f7'} justifyContent={'flex-start'} position={'relative'}>
+          <Stack
+            w={'30%'}
+            bg={'#edf2f7'}
+            justifyContent={'flex-start'}
+            position={'relative'}
+          >
             <InputGroup size={'sm'} bg={'#f7fafc'}>
               <Input placeholder="Search within document" />
               <InputRightElement
@@ -91,21 +130,37 @@ interface ContainerProps {
               />
             </InputGroup>
           </Stack>
-          <Stack direction={'row'} w={'50%'} justifyContent={'flex-end'}>
+          <Stack
+            direction={'row'}
+            w={'50%'}
+            justifyContent={'flex-end'}
+          >
             <ButtonGroup
               size={'sm'}
               w={'auto'}
               justifyContent={'flex-end'}
               bg={'#edf2f7'}
             >
-              <IconButton borderRadius={0} aria-label={'icon'} icon={<AiFillStepBackward />} />
+              <IconButton
+                borderRadius={0}
+                aria-label={'icon'}
+                icon={<AiFillStepBackward />}
+                onClick={previousPage}
+                disabled={pageNumber <= 1}
+              />
               <IconButton borderRadius={0} aria-label={'icon'} icon={<AiFillBackward />} />
               <IconButton borderRadius={0} aria-label={'icon'} icon={<AiFillForward />} />
-              <IconButton borderRadius={0} aria-label={'icon'} icon={<AiFillStepForward />} />
+              <IconButton
+                borderRadius={0}
+                aria-label={'icon'}
+                icon={<AiFillStepForward />}
+                disabled={pageNumber >= numPages}
+                onClick={nextPage}
+              />
             </ButtonGroup>
             <InputGroup w={'20%'} size={'sm'}>
-              <Input />
-              <InputRightAddon children={'20'} />
+              <Input value={pageNumber || (numPages ? 1 : '--')} />
+              <InputRightAddon children={numPages || '--'} />
             </InputGroup>
           </Stack>
         </Stack>
@@ -124,7 +179,15 @@ interface ContainerProps {
             </Alert>
           </Stack>
           <Center paddingTop={0} bg="white">
-            <Reader />
+            <Stack bg="white">
+              <Document
+                file={Docs.samplePDF}
+                onLoadSuccess={onDocumentLoadSuccess}
+              >
+                <Outline onItemClick={onItemClick} />
+                <Page pageNumber={pageNumber || 1} />
+              </Document>
+            </Stack>
           </Center>
         </Stack>
       </Stack>

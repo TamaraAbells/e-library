@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { Component, useState } from "react"
 import {
   Stack,
   VStack,
@@ -13,6 +13,7 @@ import { Docs } from "../../assets"
 
 interface ContainerProps {
   navItems?: Array<ContainerProps>
+  Outline?: Component
 }
 
  const LeftControl = (props: ContainerProps): JSX.Element => {
@@ -22,51 +23,53 @@ interface ContainerProps {
   return(
     <>
       <Stack position={'fixed'}>
-        <Stack direction="row">
-          <Button colorScheme="green" boxSize={'70px'} onClick={contentOnToggle}>
-            <VStack fontSize={'40px'}>
-            <MdFormatListBulleted />
-            <Text fontSize={'10px'}>Content</Text>
-            </VStack>
-          </Button>
-          <Collapse in={contentIsOpen} animateOpacity>
-            <Box
-              p="40px"
-              color="white"
-              mt="4"
-              bg="teal.500"
-              rounded="md"
-              shadow="md"
-            >
-              <Text>
-                Lorem ipsum is placeholder text commonly used in the graphic, print, and
-                publishing industries for previewing layouts and visual mockups.
-              </Text>
-            </Box>
-          </Collapse>
-        </Stack>
-        <Stack direction="row">
-          <Button colorScheme="green" boxSize={'70px'} onClick={detailOnToggle}>
-            <VStack fontSize={'40px'}>
-              <MdInfoOutline />
-              <Text fontSize={'10px'}>Detail</Text>
-            </VStack>
-          </Button>
-          <Collapse in={detailIsOpen} animateOpacity>
-            <Box
-              p="40px"
-              color="white"
-              mt="4"
-              bg="teal.500"
-              rounded="md"
-              shadow="md"
-            >
-              <Text>
-                Lorem ipsum is placeholder text commonly used in the graphic, print, and
-                publishing industries for previewing layouts and visual mockups.
-              </Text>
-            </Box>
-          </Collapse>
+        <Stack position={'absolute'}>
+          <Stack>
+            <Button colorScheme="green" boxSize={'70px'} onClick={contentOnToggle}>
+              <VStack fontSize={'40px'}>
+              <MdFormatListBulleted />
+              <Text fontSize={'10px'}>Content</Text>
+              </VStack>
+            </Button>
+            <Collapse in={contentIsOpen} animateOpacity>
+              <Box
+                p="40px"
+                color="white"
+                mt="4"
+                bg="teal.500"
+                rounded="md"
+                shadow="md"
+              >
+                <Text>
+                  Lorem ipsum is placeholder text commonly used in the graphic, print, and
+                  publishing industries for previewing layouts and visual mockups.
+                </Text>
+              </Box>
+            </Collapse>
+          </Stack>
+          <Stack>
+            <Button colorScheme="green" boxSize={'70px'} onClick={detailOnToggle}>
+              <VStack fontSize={'40px'}>
+                <MdInfoOutline />
+                <Text fontSize={'10px'}>Detail</Text>
+              </VStack>
+            </Button>
+            <Collapse in={detailIsOpen} animateOpacity>
+              <Box
+                p="40px"
+                color="white"
+                mt="4"
+                bg="teal.500"
+                rounded="md"
+                shadow="md"
+              >
+                <Text>
+                  Lorem ipsum is placeholder text commonly used in the graphic, print, and
+                  publishing industries for previewing layouts and visual mockups.
+                </Text>
+              </Box>
+            </Collapse>
+          </Stack>
         </Stack>
       </Stack>
     </>

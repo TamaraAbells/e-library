@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Stack, useBreakpointValue } from "@chakra-ui/react"
+import { Stack } from "@chakra-ui/react"
 import { Document, Page, Outline, pdfjs } from 'react-pdf'
 import pdfjsWorker from "react-pdf/node_modules/pdfjs-dist/build/pdf.worker.entry"
 
@@ -21,8 +21,6 @@ const Category = (props: CategoryProps): JSX.Element => {
   useEffect(() => {
     setComputedWidth(width - 370)
   }, [width])
-
-console.log(computedWidth)
 
 function onDocumentLoadSuccess({ numPages }) {
   setNumPages(numPages);
@@ -51,6 +49,7 @@ function onItemClick({ pageNumber: itemPageNumber }) {
           file={Docs.samplePDF}
           onLoadSuccess={onDocumentLoadSuccess}
         >
+          <Outline onItemClick={onItemClick} />
           {Array.from(
             new Array(numPages),
             (el, index) => (
