@@ -8,6 +8,7 @@ import Homepage from "./pages/homepage/Homepage"
 import Search from "./pages/search/Search"
 import Category from "./pages/category/Category"
 import Container from "./pages/reader/Container"
+import Reader from "./pages/reader/Reader"
 
 // import "./server/server"
 
@@ -40,6 +41,13 @@ export const App = () => {
       element: <FrontendLayout />,
       children: [
         { index: true, element: <Container /> },
+      ]
+    },
+    {
+      path: "/readerz/",
+      element: <FrontendLayout />,
+      children: [
+        { index: true, element: <Reader /> },
       ]
     },
   ];

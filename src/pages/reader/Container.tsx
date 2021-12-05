@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useMemo } from "react"
+import React, { useState, useEffect, useMemo, useRef } from "react"
 import { useDebounce } from "use-debounce"
+import DownloadLink from "react-download-link";
+import { useReactToPrint } from 'react-to-print'
 import { Document, Page, Outline, pdfjs } from 'react-pdf'
 import pdfjsWorker from "react-pdf/node_modules/pdfjs-dist/build/pdf.worker.entry"
 import {
@@ -22,6 +24,7 @@ import {
   MenuList,
   MenuItem,
   Checkbox,
+  Button,
   Alert,
   AlertIcon,
   AlertTitle,
@@ -79,9 +82,9 @@ interface ContainerProps {
   const { width: winSize } = useWindowSize() as any
   const breakPoint = useBreakpoint()
   const toast = useToast()
-  const [searchString, setSearchString] = useState('');
-  const [debouncedSearchString] = useDebounce(searchString, 250);
-
+  const printRef = useRef()
+  const [searchString, setSearchString] = useState('')
+  const [debouncedSearchString] = useDebounce(searchString, 250)
 
   useEffect(() => {
     breakPoint === 'md' ? (
@@ -96,6 +99,10 @@ interface ContainerProps {
   }, [winSize, breakPoint])
 
   const searchResults = usePdfTextSearch(Docs.samplePDF, debouncedSearchString);
+
+  const handlePrint = useReactToPrint({
+    content: () => printRef.current,
+  });
 
   /* 
     This textRenderer highlight pattern is from the Recipes in the react-pdf docs:
@@ -328,7 +335,7 @@ interface ContainerProps {
                     </Alert>
                   )}
                 </Stack>
-                <Center paddingTop={0} bg={'white'}>
+                <Center paddingTop={0} bg={'white'} ref={printRef}>
                   <Stack bg={'white'} width={computedWidth}>
                     {searchString &&
                       searchResults ? (
@@ -341,11 +348,18 @@ interface ContainerProps {
                           />
                         ))
                       ) : (
-                      <Page
-                        pageNumber={pageNumber || 1}
-                        width={computedWidth}
-                        customTextRenderer={textRenderer}
-                      />
+                        Array.from(
+                          new Array(numPages),
+                          (el, index) => (
+                            <Page
+                              key={`page_${index + 1}`}
+                              pageNumber={index + 1}
+                              width={computedWidth}
+                              customTextRenderer={textRenderer}
+                            />
+                          ),
+                        )
+                      
                     )}
                   </Stack>
                 </Center>
@@ -358,13 +372,17 @@ interface ContainerProps {
                 <SimpleGrid columns={[2, null, 1]} spacing={2}>
                   <ListItem as={Link}>
                     <ListIcon as={IoMdDownload} color="green.500" />
-                    Download
+                      <DownloadLink
+                        label="Download"
+                        filename={Docs.samplePDF}
+                        exportFile={() => "My cached data"}
+                      />
                   </ListItem>
                   <ListItem as={Link}>
                     <ListIcon as={IoMdPhotos} color="green.500" />
                     Screenshot
                   </ListItem>
-                  <ListItem as={Link}>
+                  <ListItem as={Link} onClick={handlePrint}>
                     <ListIcon as={IoMdPrint} color="green.500" />
                     Print
                   </ListItem>
