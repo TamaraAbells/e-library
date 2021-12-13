@@ -1,6 +1,8 @@
 import React from "react";
 import {
     Avatar,
+    ButtonGroup,
+    Button,
     Box,
     Flex,
     Text,
@@ -22,64 +24,80 @@ import {
     ChevronDownIcon,
     ChevronRightIcon,
   } from '@chakra-ui/icons';
+  import Signin from "../../modals/Signin";
   
   export default function Header() {
     const { isOpen, onToggle } = useDisclosure();
+    const {
+      isOpen: signinIsOpen,
+      onClose: signinOnClose,
+      onOpen: signinOnOpen
+    } = useDisclosure();
   
     return (
-      <Box position={'fixed'} w={'100%'} zIndex={'2'}>
-        <Flex
-          bg={useColorModeValue('white', 'gray.800')}
-          color={useColorModeValue('gray.600', 'white')}
-          minH={'60px'}
-          py={useBreakpointValue({ base: 2 })}
-          px={{ base: 4 }}
-          borderBottom={1}
-          borderStyle={'solid'}
-          borderColor={useColorModeValue('gray.200', 'gray.900')}
-          align={'center'}>
+      <>
+        <Box position={'fixed'} w={'100%'} zIndex={'2'}>
           <Flex
-            flex={useBreakpointValue({ base: 1, md: 'auto' })}
-            ml={useBreakpointValue({ base: -2 })}
-            display={useBreakpointValue({ base: 'flex', md: 'none' })}>
-            <IconButton
-              onClick={onToggle}
-              icon={
-                isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
-              }
-              variant={'ghost'}
-              aria-label={'Toggle Navigation'}
-            />
-          </Flex>
-          <Flex flex={{ base: 1 }} justify={useBreakpointValue({ base: 'center', md: 'start' })}>
-            <Text
-              textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-              fontFamily={'heading'}
-              color={useColorModeValue('gray.800', 'white')}>
-              Logo
-            </Text>
-  
-            <Flex display={useBreakpointValue({ base: 'none', md: 'flex' })} ml={10}>
-              <DesktopNav />
+            bg={useColorModeValue('white', 'gray.800')}
+            color={useColorModeValue('gray.600', 'white')}
+            minH={'60px'}
+            py={useBreakpointValue({ base: 2 })}
+            px={{ base: 4 }}
+            borderBottom={1}
+            borderStyle={'solid'}
+            borderColor={useColorModeValue('gray.200', 'gray.900')}
+            align={'center'}>
+            <Flex
+              flex={useBreakpointValue({ base: 1, md: 'auto' })}
+              ml={useBreakpointValue({ base: -2 })}
+              display={useBreakpointValue({ base: 'flex', md: 'none' })}>
+              <IconButton
+                onClick={onToggle}
+                icon={
+                  isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
+                }
+                variant={'ghost'}
+                aria-label={'Toggle Navigation'}
+              />
             </Flex>
+            <Flex flex={{ base: 1 }} justify={useBreakpointValue({ base: 'center', md: 'start' })}>
+              <Text
+                textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
+                fontFamily={'heading'}
+                color={useColorModeValue('gray.800', 'white')}>
+                Logo
+              </Text>
+    
+              <Flex display={useBreakpointValue({ base: 'none', md: 'flex' })} ml={10}>
+                <DesktopNav />
+              </Flex>
+            </Flex>
+    
+            <Stack
+              flex={useBreakpointValue({ base: 1, md: 0 })}
+              justify={'flex-end'}
+              direction={'row'}
+              spacing={6}
+            >
+              {false ? (
+                <Link>
+                  <Avatar size={'sm'} />
+              </Link>
+              ) : (
+                <ButtonGroup size={'sm'}>
+                  <Button colorScheme={'green'}>Register</Button>
+                  <Button colorScheme={'blue'} onClick={signinOnOpen}>Login</Button>
+                </ButtonGroup>
+              )}
+              <Signin isOpen={signinIsOpen} onClose={signinOnClose} />
+            </Stack>
           </Flex>
-  
-          <Stack
-            flex={useBreakpointValue({ base: 1, md: 0 })}
-            justify={'flex-end'}
-            direction={'row'}
-            spacing={6}
-          >
-            <Link>
-              <Avatar size={'sm'} />
-            </Link>
-          </Stack>
-        </Flex>
-  
-        <Collapse in={isOpen} animateOpacity>
-          <MobileNav />
-        </Collapse>
-      </Box>
+    
+          <Collapse in={isOpen} animateOpacity>
+            <MobileNav />
+          </Collapse>
+        </Box>
+      </>
     );
   }
   

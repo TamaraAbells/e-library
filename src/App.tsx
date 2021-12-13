@@ -9,6 +9,8 @@ import Search from "./pages/search/Search"
 import Category from "./pages/category/Category"
 import Container from "./pages/reader/Container"
 import Reader from "./pages/reader/Reader"
+import Login from "./pages/auth/Login"
+import Register from "./pages/auth/Register"
 
 // import "./server/server"
 
@@ -38,7 +40,7 @@ export const App = () => {
     },
     {
       path: "/reader/",
-      element: <FrontendLayout />,
+      // element: <FrontendLayout />,
       children: [
         { index: true, element: <Container /> },
       ]
@@ -48,6 +50,20 @@ export const App = () => {
       element: <FrontendLayout />,
       children: [
         { index: true, element: <Reader /> },
+      ]
+    },
+    {
+      path: "/login/",
+      // element: <FrontendLayout />,
+      children: [
+        { index: true, element: <Login /> },
+      ]
+    },
+    {
+      path: "/register/",
+      // element: <FrontendLayout />,
+      children: [
+        { index: true, element: <Register /> },
       ]
     },
   ];
