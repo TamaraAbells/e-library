@@ -1,4 +1,5 @@
-import React from "react";
+import React from "react"
+import { Link as RouterLink } from "react-router-dom"
 import {
     Avatar,
     ButtonGroup,
@@ -17,22 +18,16 @@ import {
     useColorModeValue,
     useBreakpointValue,
     useDisclosure,
-  } from '@chakra-ui/react';
+  } from '@chakra-ui/react'
   import {
     HamburgerIcon,
     CloseIcon,
     ChevronDownIcon,
     ChevronRightIcon,
   } from '@chakra-ui/icons';
-  import Signin from "../../modals/Signin";
   
   export default function Header() {
     const { isOpen, onToggle } = useDisclosure();
-    const {
-      isOpen: signinIsOpen,
-      onClose: signinOnClose,
-      onOpen: signinOnOpen
-    } = useDisclosure();
   
     return (
       <>
@@ -85,11 +80,14 @@ import {
               </Link>
               ) : (
                 <ButtonGroup size={'sm'}>
-                  <Button colorScheme={'green'}>Register</Button>
-                  <Button colorScheme={'blue'} onClick={signinOnOpen}>Login</Button>
+                  <RouterLink to={'/register'}>
+                    <Button colorScheme={'green'}>Register</Button>
+                  </RouterLink>
+                  <RouterLink to={'/login'}>
+                    <Button colorScheme={'blue'}>Login</Button>
+                  </RouterLink>
                 </ButtonGroup>
               )}
-              <Signin isOpen={signinIsOpen} onClose={signinOnClose} />
             </Stack>
           </Flex>
     

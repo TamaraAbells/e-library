@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 import {
     Box,
     Flex,
@@ -195,7 +196,15 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
                 Register
               </Button>
             </Box>
-            form
+            <Stack spacing={10}>
+              <Stack
+                direction={{ base: 'column', sm: 'row' }}
+                align={'start'}
+                justify={'start'}>
+                <Text>Already have an account?</Text>
+                <Link as={RouterLink} to={'/login'} color={'blue.400'}>Login to account</Link>
+              </Stack>
+            </Stack>
           </Stack>
         </Container>
         {/* <Blur

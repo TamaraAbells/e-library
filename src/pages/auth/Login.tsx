@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 import {
     Box,
     Flex,
@@ -193,7 +194,15 @@ import {
                 Login
               </Button>
             </Box>
-            form
+            <Stack spacing={10}>
+              <Stack
+                direction={{ base: 'column', sm: 'row' }}
+                align={'start'}
+                justify={'start'}>
+                <Text>Don't have an account?</Text>
+                <Link as={RouterLink} to={'/register'} color={'blue.400'}>Create a new account</Link>
+              </Stack>
+            </Stack>
           </Stack>
         </Container>
         {/* <Blur
